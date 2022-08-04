@@ -25,12 +25,13 @@ router.post('/img.gif', async (ctx) => {
 
 app
   .use(async (ctx, next) => {
+    console.log(`Process ${ctx.request.method} ${ctx.request.url}...`);
     // 设置允许跨域
     ctx.set('Access-Control-Allow-Origin', '*');
     ctx.set('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, POST, DELETE');
     await next();
   })
-  .use(koaBody())
+  .use(koaBody({ multipart: true }))
   .use(router.routes())
   .use(serve(path.join(__dirname + '/server/html')))
   .use(serve(path.join(__dirname + '/src'), { extensions: ['.js'] }))

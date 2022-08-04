@@ -8,7 +8,7 @@ export function sendBeacon(params) {
   const data = new FormData();
 
   for (let key in params) {
-    data.append(key, params[key] ?? '');
+    data.append(key, encodeURIComponent(params[key] ?? ''));
   }
 
   data.append('appid', config.appid);
